@@ -2,7 +2,7 @@
 pragma solidity ^0.8.0;
 
 contract DosAuction {
-    address public currentFrontrunner;
+    address payable public currentFrontrunner;
     uint public currentBid;
 
     // Takes in bid, refunding the frontrunner if they are outbid
