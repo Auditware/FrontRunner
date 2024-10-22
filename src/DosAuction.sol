@@ -12,11 +12,11 @@ contract DosAuction {
         // Refund the previous frontrunner if there is one
         if (currentFrontrunner != address(0)) {
             // Vulnerable code: the refund could fail if the frontrunner's fallback function reverts.
-            // This prevents the new bid from succeeding, allowing frontrunning or DoS.
             require(currentFrontrunner.send(currentBid), "Refund failed, frontrunner cannot be replaced");
         }
 
-        currentFrontrunner = msg.sender;
+        // Cast msg.sender to payable to avoid type conversion error
+        currentFrontrunner = payable(msg.sender);
         currentBid = msg.value;
     }
 }
